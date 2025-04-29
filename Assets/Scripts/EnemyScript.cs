@@ -5,7 +5,7 @@ public class EnemyScript : MonoBehaviour
 {
     private Player player;
     public float lifeTime = 5f;
-    public int hp = 20;
+    public int hp = 50;
 
     public event Action OnEnemyDestroyed;
 
@@ -27,7 +27,7 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    void AttackPlayer()
+    public void AttackPlayer()
     {
         player.TakeDamage(10);
     }
@@ -35,6 +35,7 @@ public class EnemyScript : MonoBehaviour
     public void TakeDamage(int damage)
     {
         hp -= damage;
+
         if (hp <= 0)
         {
             Die();

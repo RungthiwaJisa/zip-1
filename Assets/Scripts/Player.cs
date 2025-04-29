@@ -4,11 +4,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int hp = 100;
+    public int gold = 0;
     public List<Weapons> ownedWeapons = new List<Weapons>();
     public Weapons currentWeapon;
-
-    public GameObject bulletPrefab;
-    public Transform shootPoint;
 
     public void TakeDamage(int damage)
     {
@@ -47,16 +45,6 @@ public class Player : MonoBehaviour
         {
             currentWeapon = weapon;
             Debug.Log("Selected: " + weapon.weaponName);
-        }
-    }
-
-    public void Shoot()
-    {
-        if (currentWeapon != null)
-        {
-            GameObject bulletObj = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
-            Bullets bullet = bulletObj.GetComponent<Bullets>();
-            bullet.damage = currentWeapon.damage;
         }
     }
 }

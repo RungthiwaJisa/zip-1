@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private UIManager uiManager;
     [SerializeField] private GameObject enamyPrefab;
+    Player player;
 
     [Header("Enemy Settings")]
     [SerializeField] private int enemyCount = 2;
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //var getPlayer = gameObject.Find("Player");
+
         UIManager.OnUIStartButton += StartGame;
         UIManager.OnUIRestartButton += RestartGame;
     }
@@ -109,9 +112,13 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator DespawnEnemies(GameObject enemy)
     {
+        EnemyScript enemyAttack = enemy.GetComponent<EnemyScript>();
+
         yield return new WaitForSeconds(deSpawnRate);
         if (_spawnedEnemies.Contains(enemy))
         {
+            enemyAttack.AttackPlayer();
+
             _spawnedEnemies.Remove(enemy);
             Destroy(enemy);
         }
@@ -119,6 +126,7 @@ public class GameManager : MonoBehaviour
     void AddScore()
     {
         score++;
+        
         uiManager.UpdateScore(score);
         print(score);
     }

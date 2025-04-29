@@ -7,11 +7,15 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class UIManager : MonoBehaviour
 {
+    public Player player;
+
     [Header("Button Setup")]
     [SerializeField] private Button startButton;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button shootButton;
-   
+    [SerializeField] private Button shopButton;
+    [SerializeField] private Button upgradeButton;
+    [SerializeField] private Button returnButton;
 
     [Header("UI Setup")]
     [SerializeField] private TMP_Text greetingText;
@@ -22,6 +26,9 @@ public class UIManager : MonoBehaviour
     public static event Action OnUIStartButton;
     public static event Action OnUIRestartButton;
     public static event Action OnUIShootButton;
+    public static event Action OnUIShopButton;
+    public static event Action OnUIUpGradeButton;
+    public static event Action OnUIReturnButton;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,6 +43,10 @@ public class UIManager : MonoBehaviour
         //week11
         crosshair.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
+
+        shopButton.gameObject.SetActive(false);
+        upgradeButton.gameObject.SetActive(false);
+        returnButton.gameObject.SetActive(false);
     }
 
     void StartButtonPressed()
@@ -50,6 +61,9 @@ public class UIManager : MonoBehaviour
         scoreText.gameObject.SetActive(true);
         scoreText.text = $"SCORE: 0";
 
+        shopButton.gameObject.SetActive(false);
+        upgradeButton.gameObject.SetActive(false);
+        returnButton.gameObject.SetActive(false);
     }
 
     void RestartButtonPressed()
@@ -62,6 +76,10 @@ public class UIManager : MonoBehaviour
 
         crosshair.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
+
+        shopButton.gameObject.SetActive(true);
+        upgradeButton.gameObject.SetActive(false);
+        returnButton.gameObject.SetActive(false);
     }
 
     void ShootButtonPressed()
@@ -71,5 +89,43 @@ public class UIManager : MonoBehaviour
     public void UpdateScore(int score)
     {
         scoreText.text = $"SCORE: {score}";
+    }
+    public void ShopButtonPressed()
+    {
+        OnUIShopButton?.Invoke();
+        greetingText.gameObject.SetActive(false);
+        startButton.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(false);
+        shootButton.gameObject.SetActive(false);
+
+        crosshair.gameObject.SetActive(false);
+        scoreText.gameObject.SetActive(false);
+
+        shopButton.gameObject.SetActive(false);
+        upgradeButton.gameObject.SetActive(true);
+        returnButton.gameObject.SetActive(true);
+
+
+    }
+
+    public void UpGradeButtonPressed()
+    {
+        OnUIShopButton?.Invoke();
+    }
+
+    public void ReturnButtonPressed()
+    {
+        OnUIReturnButton?.Invoke();
+        greetingText.gameObject.SetActive(true);
+        startButton.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(false);
+        shootButton.gameObject.SetActive(false);
+
+        crosshair.gameObject.SetActive(false);
+        scoreText.gameObject.SetActive(false);
+
+        shopButton.gameObject.SetActive(true);
+        upgradeButton.gameObject.SetActive(false);
+        returnButton.gameObject.SetActive(false);
     }
 }
