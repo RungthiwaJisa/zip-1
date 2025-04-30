@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57961eab6a87b5544a80bd8dc470bd30, type: 3}
-  m_Name: Gun3
+  m_Name: Awm
   m_EditorClassIdentifier: 
   weaponName: 33
   baseDamage: 30

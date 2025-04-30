@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57961eab6a87b5544a80bd8dc470bd30, type: 3}
-  m_Name: Gun2
+  m_Name: Aug
   m_EditorClassIdentifier: 
-  weaponName: 22
-  baseDamage: 20
-  basePrice: 300
-  baseCapacity: 25
-  weaponIcon: {fileID: 21300000, guid: b8b08742d8c434b49bc532dcc1dcb0c9, type: 3}
-  weaponModel: {fileID: 6594591251374070739, guid: 145bd1ef9f6d7404a81f1fb171332843, type: 3}
+  weaponName: 11
+  baseDamage: 10
+  basePrice: 100
+  baseCapacity: 10
+  weaponIcon: {fileID: -943099388, guid: 4e7a94f756d981b42bccce1318ca7670, type: 3}
+  weaponModel: {fileID: 986918985749772148, guid: 95bd468b63939814daa45082e84ecbea, type: 3}

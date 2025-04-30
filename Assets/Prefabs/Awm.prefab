@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3486070999373683948}
   - component: {fileID: 1664503798839601003}
   m_Layer: 0
-  m_Name: Weapon3
+  m_Name: Awm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
