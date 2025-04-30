@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button shootButton;
     [SerializeField] private Button shopButton;
     [SerializeField] private Button upgradeButton;
-    [SerializeField] private Button returnButton;
+    //[SerializeField] private Button returnButton;
 
     [Header("UI Setup")]
     [SerializeField] private TMP_Text greetingText;
@@ -44,9 +44,9 @@ public class UIManager : MonoBehaviour
         crosshair.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
 
-        shopButton.gameObject.SetActive(false);
-        upgradeButton.gameObject.SetActive(false);
-        returnButton.gameObject.SetActive(false);
+        //shopButton.gameObject.SetActive(false);
+        //upgradeButton.gameObject.SetActive(false);
+        //returnButton.gameObject.SetActive(false);
     }
 
     void StartButtonPressed()
@@ -61,9 +61,9 @@ public class UIManager : MonoBehaviour
         scoreText.gameObject.SetActive(true);
         scoreText.text = $"SCORE: 0";
 
-        shopButton.gameObject.SetActive(false);
-        upgradeButton.gameObject.SetActive(false);
-        returnButton.gameObject.SetActive(false);
+        //shopButton.gameObject.SetActive(false);
+        //upgradeButton.gameObject.SetActive(false);
+        //returnButton.gameObject.SetActive(false);
     }
 
     void RestartButtonPressed()
@@ -77,9 +77,9 @@ public class UIManager : MonoBehaviour
         crosshair.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
 
-        shopButton.gameObject.SetActive(true);
-        upgradeButton.gameObject.SetActive(false);
-        returnButton.gameObject.SetActive(false);
+        //shopButton.gameObject.SetActive(false);
+        //upgradeButton.gameObject.SetActive(false);
+        //returnButton.gameObject.SetActive(false);
     }
 
     void ShootButtonPressed()
@@ -101,9 +101,9 @@ public class UIManager : MonoBehaviour
         crosshair.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
 
-        shopButton.gameObject.SetActive(false);
-        upgradeButton.gameObject.SetActive(true);
-        returnButton.gameObject.SetActive(true);
+        //shopButton.gameObject.SetActive(false);
+        //upgradeButton.gameObject.SetActive(false);
+        //returnButton.gameObject.SetActive(false);
 
 
     }
@@ -124,8 +124,8 @@ public class UIManager : MonoBehaviour
         crosshair.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
 
-        shopButton.gameObject.SetActive(true);
-        upgradeButton.gameObject.SetActive(false);
-        returnButton.gameObject.SetActive(false);
+        //shopButton.gameObject.SetActive(false);
+        //upgradeButton.gameObject.SetActive(false);
+        //returnButton.gameObject.SetActive(false);
     }
 }

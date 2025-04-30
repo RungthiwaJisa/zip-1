@@ -7,6 +7,7 @@ public class Weapons : MonoBehaviour
     public int level = 1;
     public int price = 100;
     public int capacity = 10;
+    public Sprite weaponIcon;
 
     public void Upgrade()
     {

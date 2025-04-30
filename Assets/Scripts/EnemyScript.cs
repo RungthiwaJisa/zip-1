@@ -9,9 +9,11 @@ public class EnemyScript : MonoBehaviour
 
     public event Action OnEnemyDestroyed;
 
-    public void Init(Player playerRef)
+
+    private void Start()
     {
-        player = playerRef;
+        var go = GameObject.Find("Player");
+        player = go.GetComponent<Player>();
     }
 
     private void OnTriggerEnter(Collider other)

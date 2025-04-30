@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -7,6 +8,12 @@ public class Player : MonoBehaviour
     public int gold = 0;
     public List<Weapons> ownedWeapons = new List<Weapons>();
     public Weapons currentWeapon;
+    public Image imageWeapon;
+
+    private void Start()
+    {
+        currentWeapon = ownedWeapons[0];
+    }
 
     public void TakeDamage(int damage)
     {
@@ -45,6 +52,19 @@ public class Player : MonoBehaviour
         {
             currentWeapon = weapon;
             Debug.Log("Selected: " + weapon.weaponName);
+        }
+    }
+
+    public void UpdateUiWeapon()
+    {
+        if (currentWeapon != null)
+        {
+            imageWeapon.sprite = currentWeapon.weaponIcon;
+            imageWeapon.enabled = true;
+        }
+        else
+        {
+            imageWeapon.enabled = false;
         }
     }
 }
