@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float spawnRate = 2f;
     [SerializeField] private float deSpawnRate = 4f;
 
+    private float times;
+    public bool win;
+
     private List<GameObject> _spawnedEnemies = new List<GameObject>();
     private int score = 0;
     private bool _gameStarted;
@@ -37,10 +40,17 @@ public class GameManager : MonoBehaviour
         UIManager.OnUIRestartButton += RestartGame;
     }
 
-    void OnDestroy()
+    private void FixedUpdate()
     {
-        UIManager.OnUIStartButton -= StartGame;
-        UIManager.OnUIRestartButton -= RestartGame;
+        times += Time.deltaTime;
+        if (times > 50)
+        {
+            win = true;
+        }
+        else 
+        {
+            uiManager.UpdateTime(times);
+        }
     }
 
     void StartGame()
@@ -60,7 +70,6 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(SpawnEnemies());
     }
-
     void RestartGame()
     {
         Debug.Log("Restarted!");

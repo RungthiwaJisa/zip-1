@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57961eab6a87b5544a80bd8dc470bd30, type: 3}
   m_Name: Aug
   m_EditorClassIdentifier: 
-  weaponName: 11
+  weaponName: Aug
   baseDamage: 10
   basePrice: 100
   baseCapacity: 10

@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     private Player player;
+    private UIManager uiManager;
     public int hp = 50;
     public int goldReward = 10; // เพิ่มรางวัลทอง
     public event Action OnEnemyDestroyed;
@@ -12,6 +13,8 @@ public class EnemyScript : MonoBehaviour
     {
         var go = GameObject.Find("Player");
         player = go.GetComponent<Player>();
+        var ge = GameObject.Find("GameManager");
+        uiManager = ge.GetComponent<UIManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,6 +34,7 @@ public class EnemyScript : MonoBehaviour
         if (player != null)
         {
             player.TakeDamage(10);
+            uiManager.UpdateHP();
         }
     }
 
@@ -48,6 +52,7 @@ public class EnemyScript : MonoBehaviour
         if (player != null)
         {
             player.AddGold(goldReward);
+            uiManager.UpdateCoin();
         }
 
         OnEnemyDestroyed?.Invoke();

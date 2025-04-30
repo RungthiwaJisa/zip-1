@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6223bba575e88d34f9fd2281b8c1e538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: 
+  weaponData: {fileID: 11400000, guid: 20b7527dded28f34d996c02282686691, type: 2}
+  weaponName: Awm
   damage: 10
   level: 1
   price: 100

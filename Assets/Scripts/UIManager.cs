@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEditor.U2D;
 
 
 public class UIManager : MonoBehaviour
@@ -11,20 +12,25 @@ public class UIManager : MonoBehaviour
 
     [Header("Button Setup")]
     [SerializeField] private Button startButton;
-    [SerializeField] private Button restartButton;
+    [SerializeField] public Button restartButton;
     [SerializeField] private Button shootButton;
     [SerializeField] private Button shopButton;
-    //[SerializeField] private Button returnButton;
+    [SerializeField] private Button settingButton;
+    [SerializeField] private Button exitButton;
 
     [Header("UI Setup")]
-    //[SerializeField] private TMP_Text greetingText;
-    //week11
+    [SerializeField] private TMP_Text greetingText;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text TimesCount;
-    [SerializeField] private Image crosshair;
+    [SerializeField] private TMP_Text Moneys;
+    [SerializeField] private TMP_Text HP;
 
-    public static event Action OnUIStartButton;
+
+    [SerializeField] private Image crosshair;
+    [SerializeField] private Image gun;
+
     public static event Action OnUIRestartButton;
+    public static event Action OnUIStartButton;
     public static event Action OnUIShootButton;
     public static event Action OnUIShopButton;
     public static event Action OnUIUpGradeButton;
@@ -34,50 +40,60 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gun.sprite = player.currentWeapon.weaponIcon;
+
         startButton.onClick.AddListener(StartButtonPressed);
-        restartButton.onClick.AddListener(RestartButtonPressed);
         shootButton.onClick.AddListener(ShootButtonPressed);
 
-        restartButton.gameObject.SetActive(false);
         shootButton.gameObject.SetActive(false);
-        //week11
         crosshair.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
+        TimesCount.gameObject.SetActive(false);
+        Moneys.gameObject.SetActive(false);
+        HP.gameObject.SetActive(false);
 
-        //shopButton.gameObject.SetActive(false);
-        //upgradeButton.gameObject.SetActive(false);
-        //returnButton.gameObject.SetActive(false);
+        shopButton.gameObject.SetActive(false);
+        gun.gameObject.SetActive(false);
     }
 
     void StartButtonPressed()
     {
         OnUIStartButton?.Invoke();
-        //greetingText.gameObject.SetActive(false);
+        greetingText.gameObject.SetActive(false);
         startButton.gameObject.SetActive(false);
-        restartButton.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(false); 
         shootButton.gameObject.SetActive(true);
 
         crosshair.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(true);
         scoreText.text = $"SCORE: 0";
 
-        //shopButton.gameObject.SetActive(false);
-        //returnButton.gameObject.SetActive(false);
+        TimesCount.gameObject.SetActive(true);
+        Moneys.gameObject.SetActive(true);
+        HP.gameObject.SetActive(true);
+
+        UpdateTime(0);
+        UpdateCoin();
+        UpdateHP();
+
+        shopButton.gameObject.SetActive(false);
+
+        settingButton.gameObject.SetActive(false);
+        exitButton.gameObject.SetActive(false);
     }
 
-    void RestartButtonPressed()
+    public void RestartButtonPressed()
     {
         OnUIRestartButton?.Invoke();
-        //greetingText.gameObject.SetActive(true);
+
+        greetingText.gameObject.SetActive(true);
         startButton.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(false);
         shootButton.gameObject.SetActive(false);
-
+        shopButton.gameObject.SetActive(false);
         crosshair.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
-
-        //shopButton.gameObject.SetActive(false);
-        //returnButton.gameObject.SetActive(false);
     }
 
     void ShootButtonPressed()
@@ -92,10 +108,18 @@ public class UIManager : MonoBehaviour
     {
         TimesCount.text = $"Time: {time}";
     }
+    public void UpdateCoin()
+    {
+        Moneys.text = $"Money: {player.gold}";
+    }
+    public void UpdateHP()
+    {
+        HP.text = $"HP: {player.hp}";
+    }
     public void ShopButtonPressed()
     {
         OnUIShopButton?.Invoke();
-        //greetingText.gameObject.SetActive(false);
+        greetingText.gameObject.SetActive(false);
         startButton.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(false);
         shootButton.gameObject.SetActive(false);
@@ -103,29 +127,15 @@ public class UIManager : MonoBehaviour
         crosshair.gameObject.SetActive(false);
         scoreText.gameObject.SetActive(false);
 
-        //shopButton.gameObject.SetActive(false);
+        shopButton.gameObject.SetActive(false);
         //returnButton.gameObject.SetActive(false);
 
-
+        settingButton.gameObject.SetActive(false);
+        exitButton.gameObject.SetActive(false);
     }
 
     public void UpGradeButtonPressed()
     {
         OnUIShopButton?.Invoke();
-    }
-
-    public void ReturnButtonPressed()
-    {
-        OnUIReturnButton?.Invoke();
-        //greetingText.gameObject.SetActive(true);
-        startButton.gameObject.SetActive(true);
-        restartButton.gameObject.SetActive(false);
-        shootButton.gameObject.SetActive(false);
-
-        crosshair.gameObject.SetActive(false);
-        scoreText.gameObject.SetActive(false);
-
-        //shopButton.gameObject.SetActive(false);
-        //returnButton.gameObject.SetActive(false);
     }
 }

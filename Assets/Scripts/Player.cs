@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     public int hp = 100;
     public int gold = 0;
     public List<Weapons> ownedWeapons = new List<Weapons>();
+    public GameManager gameManager;
+    public UIManager uiManager;
     public Weapons currentWeapon;
     public Image imageWeapon;
 

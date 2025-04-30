@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6223bba575e88d34f9fd2281b8c1e538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: 
+  weaponData: {fileID: 11400000, guid: e2c7e3bece77c5c48912a1b8cb9a0895, type: 2}
+  weaponName: M4
   damage: 10
   level: 1
   price: 100

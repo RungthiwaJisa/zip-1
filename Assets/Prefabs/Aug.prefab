@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6223bba575e88d34f9fd2281b8c1e538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: ShortGun
+  weaponData: {fileID: 11400000, guid: e20a8e5fc3221d8428a604f525ac5e18, type: 2}
+  weaponName: Aug
   damage: 10
   level: 1
   price: 100
