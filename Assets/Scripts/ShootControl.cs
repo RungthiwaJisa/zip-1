@@ -11,25 +11,46 @@ public class ShootControl : MonoBehaviour
     [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private float bulletLifetime = 3f;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        var go = GameObject.Find("Player");
-        player = go.GetComponent<Player>();
+        if (player == null)
+        {
+            var go = GameObject.Find("Player");
+            if (go != null)
+            {
+                player = go.GetComponent<Player>();
+            }
+        }
 
         UIManager.OnUIShootButton += Shoot;
     }
 
-    // Update is called once per frame
+    void OnDestroy()
+    {
+        UIManager.OnUIShootButton -= Shoot;
+    }
+
     void Shoot()
     {
+        if (bulletPrefab == null || cameraTransform == null)
+        {
+            Debug.LogError("Missing bullet prefab or camera reference!");
+            return;
+        }
+
         var bullet = Instantiate(bulletPrefab, cameraTransform.position, Quaternion.identity);
         var rb = bullet.GetComponent<Rigidbody>();
-        rb.AddForce(cameraTransform.forward * bulletSpeed, ForceMode.Impulse);
+
+        if (rb != null)
+        {
+            rb.AddForce(cameraTransform.forward * bulletSpeed, ForceMode.Impulse);
+        }
 
         Bullets bullets = bullet.GetComponent<Bullets>();
-        bullets.damage = player.currentWeapon.damage;
+        if (bullets != null && player != null && player.currentWeapon != null)
+        {
+            bullets.damage = player.currentWeapon.damage;
+        }
 
         Destroy(bullet, bulletLifetime);
     }

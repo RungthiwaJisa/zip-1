@@ -14,13 +14,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button restartButton;
     [SerializeField] private Button shootButton;
     [SerializeField] private Button shopButton;
-    [SerializeField] private Button upgradeButton;
     //[SerializeField] private Button returnButton;
 
     [Header("UI Setup")]
-    [SerializeField] private TMP_Text greetingText;
+    //[SerializeField] private TMP_Text greetingText;
     //week11
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text TimesCount;
     [SerializeField] private Image crosshair;
 
     public static event Action OnUIStartButton;
@@ -52,7 +52,7 @@ public class UIManager : MonoBehaviour
     void StartButtonPressed()
     {
         OnUIStartButton?.Invoke();
-        greetingText.gameObject.SetActive(false);
+        //greetingText.gameObject.SetActive(false);
         startButton.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(true);
         shootButton.gameObject.SetActive(true);
@@ -62,14 +62,13 @@ public class UIManager : MonoBehaviour
         scoreText.text = $"SCORE: 0";
 
         //shopButton.gameObject.SetActive(false);
-        //upgradeButton.gameObject.SetActive(false);
         //returnButton.gameObject.SetActive(false);
     }
 
     void RestartButtonPressed()
     {
         OnUIRestartButton?.Invoke();
-        greetingText.gameObject.SetActive(true);
+        //greetingText.gameObject.SetActive(true);
         startButton.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(false);
         shootButton.gameObject.SetActive(false);
@@ -78,7 +77,6 @@ public class UIManager : MonoBehaviour
         scoreText.gameObject.SetActive(false);
 
         //shopButton.gameObject.SetActive(false);
-        //upgradeButton.gameObject.SetActive(false);
         //returnButton.gameObject.SetActive(false);
     }
 
@@ -90,10 +88,14 @@ public class UIManager : MonoBehaviour
     {
         scoreText.text = $"SCORE: {score}";
     }
+    public void UpdateTime(float time)
+    {
+        TimesCount.text = $"Time: {time}";
+    }
     public void ShopButtonPressed()
     {
         OnUIShopButton?.Invoke();
-        greetingText.gameObject.SetActive(false);
+        //greetingText.gameObject.SetActive(false);
         startButton.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(false);
         shootButton.gameObject.SetActive(false);
@@ -102,7 +104,6 @@ public class UIManager : MonoBehaviour
         scoreText.gameObject.SetActive(false);
 
         //shopButton.gameObject.SetActive(false);
-        //upgradeButton.gameObject.SetActive(false);
         //returnButton.gameObject.SetActive(false);
 
 
@@ -116,7 +117,7 @@ public class UIManager : MonoBehaviour
     public void ReturnButtonPressed()
     {
         OnUIReturnButton?.Invoke();
-        greetingText.gameObject.SetActive(true);
+        //greetingText.gameObject.SetActive(true);
         startButton.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(false);
         shootButton.gameObject.SetActive(false);
@@ -125,7 +126,6 @@ public class UIManager : MonoBehaviour
         scoreText.gameObject.SetActive(false);
 
         //shopButton.gameObject.SetActive(false);
-        //upgradeButton.gameObject.SetActive(false);
         //returnButton.gameObject.SetActive(false);
     }
 }

@@ -1,8 +1,6 @@
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using System.Collections.Generic;
-using Random = UnityEngine.Random;
 using System.Collections;
 
 public class GameManager : MonoBehaviour
@@ -13,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private UIManager uiManager;
     [SerializeField] private GameObject enamyPrefab;
-    Player player;
+    [SerializeField] private Player player;
 
     [Header("Enemy Settings")]
     [SerializeField] private int enemyCount = 2;
@@ -22,16 +20,27 @@ public class GameManager : MonoBehaviour
 
     private List<GameObject> _spawnedEnemies = new List<GameObject>();
     private int score = 0;
-
     private bool _gameStarted;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //var getPlayer = gameObject.Find("Player");
+        if (player == null)
+        {
+            var playerGO = GameObject.Find("Player");
+            if (playerGO != null)
+            {
+                player = playerGO.GetComponent<Player>();
+            }
+        }
 
         UIManager.OnUIStartButton += StartGame;
         UIManager.OnUIRestartButton += RestartGame;
+    }
+
+    void OnDestroy()
+    {
+        UIManager.OnUIStartButton -= StartGame;
+        UIManager.OnUIRestartButton -= RestartGame;
     }
 
     void StartGame()
@@ -54,12 +63,27 @@ public class GameManager : MonoBehaviour
 
     void RestartGame()
     {
-        print("Restarted!");
+        Debug.Log("Restarted!");
         _gameStarted = false;
+
+        foreach (var enemy in _spawnedEnemies)
+        {
+            if (enemy != null)
+            {
+                Destroy(enemy);
+            }
+        }
+        _spawnedEnemies.Clear();
+        score = 0;
+
+        if (uiManager != null)
+        {
+            uiManager.UpdateScore(score);
+        }
+
         arSession.Reset();
         planeManager.enabled = true;
     }
-
 
     void SpawnEnemy()
     {
@@ -75,14 +99,17 @@ public class GameManager : MonoBehaviour
         var enemy = Instantiate(enamyPrefab, randomPlanePosition, Quaternion.identity);
         _spawnedEnemies.Add(enemy);
 
-        var enemyScript = enemy.GetComponentInChildren<EnemyScript>();
-        if(enemyScript != null)
+        var enemyScript = enemy.GetComponent<EnemyScript>();
+        if (enemyScript == null)
         {
-            print("Run event");
-            enemyScript.OnEnemyDestroyed += AddScore;
+            enemyScript = enemy.GetComponentInChildren<EnemyScript>();
         }
 
-
+        if (enemyScript != null)
+        {
+            Debug.Log("Run event");
+            enemyScript.OnEnemyDestroyed += AddScore;
+        }
 
         StartCoroutine(DespawnEnemies(enemy));
     }
@@ -95,39 +122,52 @@ public class GameManager : MonoBehaviour
         var randomZ = Random.Range(-size.y, size.y);
 
         return new Vector3(center.x + randomX, center.y, center.z + randomZ);
-
     }
-
 
     IEnumerator SpawnEnemies()
     {
         while (_gameStarted)
         {
-            if(_spawnedEnemies.Count < enemyCount)
+            if (_spawnedEnemies.Count < enemyCount)
             {
                 SpawnEnemy();
             }
             yield return new WaitForSeconds(spawnRate);
         }
     }
+
     IEnumerator DespawnEnemies(GameObject enemy)
     {
-        EnemyScript enemyAttack = enemy.GetComponent<EnemyScript>();
-
         yield return new WaitForSeconds(deSpawnRate);
+
+        if (enemy == null) yield break;
+
         if (_spawnedEnemies.Contains(enemy))
         {
-            enemyAttack.AttackPlayer();
+            EnemyScript enemyAttack = enemy.GetComponent<EnemyScript>();
+            if (enemyAttack == null)
+            {
+                enemyAttack = enemy.GetComponentInChildren<EnemyScript>();
+            }
+
+            if (enemyAttack != null)
+            {
+                enemyAttack.AttackPlayer();
+            }
 
             _spawnedEnemies.Remove(enemy);
             Destroy(enemy);
         }
     }
+
     void AddScore()
     {
         score++;
-        
-        uiManager.UpdateScore(score);
-        print(score);
+
+        if (uiManager != null)
+        {
+            uiManager.UpdateScore(score);
+        }
+        Debug.Log("Score: " + score);
     }
 }

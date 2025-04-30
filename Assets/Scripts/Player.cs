@@ -12,7 +12,15 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        currentWeapon = ownedWeapons[0];
+        if (ownedWeapons.Count > 0)
+        {
+            currentWeapon = ownedWeapons[0];
+            UpdateUiWeapon();
+        }
+        else
+        {
+            Debug.LogWarning("No weapons assigned to player!");
+        }
     }
 
     public void TakeDamage(int damage)
@@ -27,6 +35,12 @@ public class Player : MonoBehaviour
     void Die()
     {
         Debug.Log("Game Over");
+    }
+
+    public void AddGold(int amount)
+    {
+        gold += amount;
+        Debug.Log($"Added {amount} gold. Total: {gold}");
     }
 
     public void BuyWeapon(Weapons weapon)
@@ -52,11 +66,14 @@ public class Player : MonoBehaviour
         {
             currentWeapon = weapon;
             Debug.Log("Selected: " + weapon.weaponName);
+            UpdateUiWeapon();
         }
     }
 
     public void UpdateUiWeapon()
     {
+        if (imageWeapon == null) return;
+
         if (currentWeapon != null)
         {
             imageWeapon.sprite = currentWeapon.weaponIcon;
