@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
 
     [Header("Enemy Settings")]
-    [SerializeField] private int enemyCount = 2;
+    [SerializeField] private int enemyCount = 1;
     [SerializeField] private float spawnRate = 2f;
     [SerializeField] private float deSpawnRate = 4f;
 
@@ -42,21 +42,27 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        times += Time.deltaTime;
-        if (times > 50)
+        if (_gameStarted) 
         {
-            win = true;
+            times += Time.deltaTime;
+
+            if (times > 20)
+            {
+                Win();
+            }
+            else
+            {
+                uiManager.UpdateTime(times);
+            }
         }
-        else 
-        {
-            uiManager.UpdateTime(times);
-        }
+        
     }
 
     void StartGame()
     {
         if (_gameStarted) return;
         _gameStarted = true;
+        times = 0;
 
         planeManager.enabled = false;
         foreach (var plane in planeManager.trackables)
@@ -178,5 +184,22 @@ public class GameManager : MonoBehaviour
             uiManager.UpdateScore(score);
         }
         Debug.Log("Score: " + score);
+    }
+
+    void Win()
+    {
+        win = true;
+        _gameStarted = false;
+
+        foreach (var enemy in _spawnedEnemies)
+        {
+            if (enemy != null)
+            {
+                Destroy(enemy);
+            }
+        }
+        _spawnedEnemies.Clear();
+
+        uiManager.LobbyWindow();
     }
 }

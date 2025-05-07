@@ -9,6 +9,7 @@ using UnityEditor.U2D;
 public class UIManager : MonoBehaviour
 {
     public Player player;
+    public ShopManager shopManager;
 
     [Header("Button Setup")]
     [SerializeField] private Button startButton;
@@ -25,7 +26,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text Moneys;
     [SerializeField] private TMP_Text HP;
 
-
     [SerializeField] private Image crosshair;
     [SerializeField] private Image gun;
 
@@ -35,7 +35,6 @@ public class UIManager : MonoBehaviour
     public static event Action OnUIShopButton;
     public static event Action OnUIUpGradeButton;
     public static event Action OnUIReturnButton;
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -59,11 +58,14 @@ public class UIManager : MonoBehaviour
 
     void StartButtonPressed()
     {
+        Time.timeScale = 1;
+
         OnUIStartButton?.Invoke();
         greetingText.gameObject.SetActive(false);
         startButton.gameObject.SetActive(false);
-        restartButton.gameObject.SetActive(false); 
+        restartButton.gameObject.SetActive(true); 
         shootButton.gameObject.SetActive(true);
+        gun.gameObject.SetActive(true);
 
         crosshair.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(true);
@@ -96,10 +98,28 @@ public class UIManager : MonoBehaviour
         scoreText.gameObject.SetActive(false);
     }
 
+    public void LobbyWindow()
+    {
+        greetingText.gameObject.SetActive(false);
+        startButton.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(false);
+        shootButton.gameObject.SetActive(false);
+
+        crosshair.gameObject.SetActive(false);
+        scoreText.gameObject.SetActive(false);
+        gun.gameObject.SetActive(false);
+
+        shopButton.gameObject.SetActive(true);
+
+        settingButton.gameObject.SetActive(true);
+        exitButton.gameObject.SetActive(true);
+    }
+
     void ShootButtonPressed()
     {
         OnUIShootButton?.Invoke();
     }
+
     public void UpdateScore(int score)
     {
         scoreText.text = $"SCORE: {score}";
@@ -128,14 +148,20 @@ public class UIManager : MonoBehaviour
         scoreText.gameObject.SetActive(false);
 
         shopButton.gameObject.SetActive(false);
-        //returnButton.gameObject.SetActive(false);
 
         settingButton.gameObject.SetActive(false);
         exitButton.gameObject.SetActive(false);
+
+        shopManager.gameObject.SetActive(true);
     }
 
     public void UpGradeButtonPressed()
     {
-        OnUIShopButton?.Invoke();
+        OnUIUpGradeButton?.Invoke();
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 }

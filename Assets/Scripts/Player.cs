@@ -37,6 +37,10 @@ public class Player : MonoBehaviour
     void Die()
     {
         Debug.Log("Game Over");
+
+        uiManager.restartButton.gameObject.SetActive(true);
+
+        Time.timeScale = 0;
     }
 
     public void AddGold(int amount)

@@ -8,7 +8,7 @@ public class ShootControl : MonoBehaviour
     [SerializeField] private Player player;
 
     [Header("Settings")]
-    [SerializeField] private float bulletSpeed = 10f;
+    [SerializeField] private float bulletSpeed = 20f;
     [SerializeField] private float bulletLifetime = 3f;
 
     void Start()
@@ -23,11 +23,6 @@ public class ShootControl : MonoBehaviour
         }
 
         UIManager.OnUIShootButton += Shoot;
-    }
-
-    void OnDestroy()
-    {
-        UIManager.OnUIShootButton -= Shoot;
     }
 
     void Shoot()

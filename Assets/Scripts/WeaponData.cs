@@ -8,5 +8,5 @@ public class WeaponData : ScriptableObject
     public int basePrice = 100;
     public int baseCapacity = 10;
     public Sprite weaponIcon;
-    public GameObject weaponModel; // Optional 3D model
+    public GameObject weaponModel;
 }

@@ -7,13 +7,17 @@ public class ShopManager : MonoBehaviour
 {
     [SerializeField] private Player player;
     [SerializeField] private List<WeaponData> availableWeapons = new List<WeaponData>();
+    [SerializeField] private GameObject lobbyPage;
+    [SerializeField] private UIManager uIManager;
 
     [Header("UI Elements")]
     [SerializeField] private GameObject shopPanel;
-    [SerializeField] private Transform weaponListContent;
-    [SerializeField] private GameObject weaponItemPrefab;
     [SerializeField] private TMP_Text goldText;
     [SerializeField] private Button closeShopButton;
+    [SerializeField] private Button gun1;
+    [SerializeField] private Button gun2;
+    [SerializeField] private Button gun3;
+
 
     // Weapon detail panel
     [SerializeField] private GameObject weaponDetailPanel;
@@ -29,6 +33,8 @@ public class ShopManager : MonoBehaviour
 
     private void Start()
     {
+        lobbyPage.SetActive(true);
+
         UIManager.OnUIShopButton += OpenShop;
         UIManager.OnUIReturnButton += CloseShop;
 
@@ -46,16 +52,27 @@ public class ShopManager : MonoBehaviour
         {
             weaponDetailPanel.SetActive(false);
         }
+
+        // เพิ่มการเชื่อมต่อปุ่มอาวุธ
+        SetupWeaponButtons();
     }
 
-    private void OnDestroy()
+    // เพิ่มฟังก์ชันใหม่สำหรับตั้งค่าปุ่มอาวุธ
+    private void SetupWeaponButtons()
     {
-        UIManager.OnUIShopButton -= OpenShop;
-        UIManager.OnUIReturnButton -= CloseShop;
-
-        if (closeShopButton != null)
+        if (gun1 != null && availableWeapons.Count >= 1)
         {
-            closeShopButton.onClick.RemoveListener(CloseShop);
+            gun1.onClick.AddListener(() => ShowWeaponDetails(availableWeapons[0]));
+        }
+
+        if (gun2 != null && availableWeapons.Count >= 2)
+        {
+            gun2.onClick.AddListener(() => ShowWeaponDetails(availableWeapons[1]));
+        }
+
+        if (gun3 != null && availableWeapons.Count >= 3)
+        {
+            gun3.onClick.AddListener(() => ShowWeaponDetails(availableWeapons[2]));
         }
     }
 
@@ -64,7 +81,7 @@ public class ShopManager : MonoBehaviour
         if (shopPanel != null)
         {
             shopPanel.SetActive(true);
-            PopulateWeaponList();
+            ShowWeaponDetails(availableWeapons[0]);
             UpdateGoldText();
         }
     }
@@ -80,38 +97,8 @@ public class ShopManager : MonoBehaviour
         {
             weaponDetailPanel.SetActive(false);
         }
-    }
 
-    private void PopulateWeaponList()
-    {
-        foreach (Transform child in weaponListContent)
-        {
-            Destroy(child.gameObject);
-        }
-
-        foreach (var weaponData in availableWeapons)
-        {
-            GameObject weaponItem = Instantiate(weaponItemPrefab, weaponListContent);
-
-            Image iconImage = weaponItem.GetComponentInChildren<Image>();
-            TMP_Text nameText = weaponItem.GetComponentInChildren<TMP_Text>();
-            Button button = weaponItem.GetComponent<Button>();
-
-            if (iconImage != null && weaponData.weaponIcon != null)
-            {
-                iconImage.sprite = weaponData.weaponIcon;
-            }
-
-            if (nameText != null)
-            {
-                nameText.text = weaponData.weaponName;
-            }
-
-            if (button != null)
-            {
-                button.onClick.AddListener(() => ShowWeaponDetails(weaponData));
-            }
-        }
+        uIManager.LobbyWindow();
     }
 
     private void ShowWeaponDetails(WeaponData weaponData)
@@ -150,15 +137,15 @@ public class ShopManager : MonoBehaviour
             string stats;
             if (isOwned && selectedWeaponInstance != null)
             {
-                stats = $"ความเสียหาย: {selectedWeaponInstance.damage}\n" +
-                        $"ความจุ: {selectedWeaponInstance.capacity}\n" +
-                        $"ระดับ: {selectedWeaponInstance.level}";
+                stats = $"Damages: {selectedWeaponInstance.damage}\n" +
+                        $"Capasity: {selectedWeaponInstance.capacity}\n" +
+                        $"Level: {selectedWeaponInstance.level}";
             }
             else
             {
-                stats = $"ความเสียหาย: {weaponData.baseDamage}\n" +
-                        $"ความจุ: {weaponData.baseCapacity}\n" +
-                        $"ราคา: {weaponData.basePrice} ทอง";
+                stats = $"Damages: {weaponData.baseDamage}\n" +
+                        $"Capasity: {weaponData.baseCapacity}\n" +
+                        $"Prices: {weaponData.basePrice} golds";
             }
             weaponStatsText.text = stats;
         }
@@ -192,7 +179,7 @@ public class ShopManager : MonoBehaviour
 
             bool isEquipped = player.currentWeapon == selectedWeaponInstance;
             equipButton.interactable = !isEquipped;
-            equipButton.GetComponentInChildren<TMP_Text>().text = isEquipped ? "กำลังใช้" : "ใช้";
+            equipButton.GetComponentInChildren<TMP_Text>().text = isEquipped ? "Alredy Use" : "Use";
         }
     }
 
@@ -249,7 +236,7 @@ public class ShopManager : MonoBehaviour
     {
         if (goldText != null)
         {
-            goldText.text = $"ทอง: {player.gold}";
+            goldText.text = $"Golds: {player.gold}";
         }
     }
 }
