@@ -24,10 +24,7 @@ public class EnemyScript : MonoBehaviour
             Bullets bullet = other.gameObject.GetComponent<Bullets>();
             int damages = bullet != null ? bullet.damage : 10;
 
-            var parti = Instantiate(bullet.particals, bullet.transform.position, Quaternion.identity);
-
             Destroy(other.gameObject);
-            Destroy(parti,2);
 
             TakeDamage(damages);
         }

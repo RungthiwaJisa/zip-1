@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  gold: 500
+  gold: 0
   ownedWeapons:
   - {fileID: 3413287487242494954, guid: 95bd468b63939814daa45082e84ecbea, type: 3}
   gameManager: {fileID: 649093977}
@@ -981,7 +981,7 @@ MonoBehaviour:
   - {fileID: 786336570796645228, guid: 4f5b910826ad4b64faf875d10ad9b05a, type: 3}
   - {fileID: 6608736619844155248, guid: 221345d20f0558d46bc713cb82f02f9f, type: 3}
   player: {fileID: 121190544}
-  enemyCount: 4
+  enemyCount: 6
   spawnRate: 2
   deSpawnRate: 6
   win: 0

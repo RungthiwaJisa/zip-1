@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
 
     [Header("Enemy Settings")]
-    [SerializeField] private int enemyCount = 2;
+    [SerializeField] private int enemyCount = 6;
     [SerializeField] private float spawnRate = 2f;
     [SerializeField] private float deSpawnRate = 4f;
 
@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour
     void RestartGame()
     {
         Debug.Log("Restarted!");
-        _gameStarted = false;
 
         foreach (var enemy in _spawnedEnemies)
         {
@@ -93,6 +92,7 @@ public class GameManager : MonoBehaviour
                 Destroy(enemy);
             }
         }
+
         _spawnedEnemies.Clear();
         score = 0;
 
@@ -101,8 +101,7 @@ public class GameManager : MonoBehaviour
             uiManager.UpdateScore(score);
         }
 
-        arSession.Reset();
-        planeManager.enabled = true;
+        StartGame();
     }
 
     void SpawnEnemy()
