@@ -71,6 +71,9 @@ public class GameManager : MonoBehaviour
         times = 0;
         player.hp = 100;
 
+        uiManager.UpdateTime(times);
+        uiManager.UpdateHP();
+
         planeManager.enabled = false;
         foreach (var plane in planeManager.trackables)
         {
@@ -86,6 +89,7 @@ public class GameManager : MonoBehaviour
     void RestartGame()
     {
         Debug.Log("Restarted!");
+        _gameStarted = false;
 
         foreach (var enemy in _spawnedEnemies)
         {
@@ -103,7 +107,8 @@ public class GameManager : MonoBehaviour
             uiManager.UpdateScore(score);
         }
 
-        StartGame();
+        uiManager.LobbyWindow();
+
     }
 
     void SpawnEnemy()
@@ -210,6 +215,11 @@ public class GameManager : MonoBehaviour
             }
         }
         _spawnedEnemies.Clear();
+
+        if (uiManager != null)
+        {
+            uiManager.UpdateScore(score);
+        }
 
         uiManager.LobbyWindow();
     }
