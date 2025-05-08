@@ -67,7 +67,9 @@ public class GameManager : MonoBehaviour
     {
         if (_gameStarted) return;
         _gameStarted = true;
+
         times = 0;
+        player.hp = 100;
 
         planeManager.enabled = false;
         foreach (var plane in planeManager.trackables)
@@ -153,6 +155,7 @@ public class GameManager : MonoBehaviour
             {
                 SpawnEnemy();
             }
+
             yield return new WaitForSeconds(spawnRate);
         }
     }
@@ -184,6 +187,8 @@ public class GameManager : MonoBehaviour
     void AddScore()
     {
         score++;
+
+        _spawnedEnemies.RemoveAt(0);
 
         if (uiManager != null)
         {
