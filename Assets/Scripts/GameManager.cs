@@ -2,19 +2,22 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
+    private float timeComplete = 90f;
+
     [Header("AR Components")]
     [SerializeField] private ARSession arSession;
     [SerializeField] private ARPlaneManager planeManager;
 
     [SerializeField] private UIManager uiManager;
-    [SerializeField] private GameObject enamyPrefab;
+    [SerializeField] private GameObject[] enamyPrefab;
     [SerializeField] private Player player;
 
     [Header("Enemy Settings")]
-    [SerializeField] private int enemyCount = 1;
+    [SerializeField] private int enemyCount = 2;
     [SerializeField] private float spawnRate = 2f;
     [SerializeField] private float deSpawnRate = 4f;
 
@@ -46,7 +49,9 @@ public class GameManager : MonoBehaviour
         {
             times += Time.deltaTime;
 
-            if (times > 20)
+
+
+            if (times > timeComplete)
             {
                 Win();
             }
@@ -111,7 +116,9 @@ public class GameManager : MonoBehaviour
         var randomPlane = planes[Random.Range(0, planes.Count)];
         var randomPlanePosition = GetRandomPosition(randomPlane);
 
-        var enemy = Instantiate(enamyPrefab, randomPlanePosition, Quaternion.identity);
+        int randomPrefab = Random.Range(0, enamyPrefab.Length);
+
+        var enemy = Instantiate(enamyPrefab[randomPrefab], randomPlanePosition, Quaternion.identity);
         _spawnedEnemies.Add(enemy);
 
         var enemyScript = enemy.GetComponent<EnemyScript>();

@@ -976,7 +976,10 @@ MonoBehaviour:
   arSession: {fileID: 202708691}
   planeManager: {fileID: 1103897712}
   uiManager: {fileID: 649093978}
-  enamyPrefab: {fileID: 3305792730567647418, guid: a01efe21058735745af00f2aea43fa00, type: 3}
+  enamyPrefab:
+  - {fileID: 8949628048820051433, guid: a6ce26bc755d2a649873cf7f3ed978d2, type: 3}
+  - {fileID: 786336570796645228, guid: 4f5b910826ad4b64faf875d10ad9b05a, type: 3}
+  - {fileID: 6608736619844155248, guid: 221345d20f0558d46bc713cb82f02f9f, type: 3}
   player: {fileID: 121190544}
   enemyCount: 4
   spawnRate: 2

@@ -32,6 +32,6 @@ public class Weapons : MonoBehaviour
 
     public int GetUpgradePrice()
     {
-        return price / 2 * level;
+        return price * level;
     }
 }

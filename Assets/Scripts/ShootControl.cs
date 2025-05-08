@@ -47,6 +47,8 @@ public class ShootControl : MonoBehaviour
             bullets.damage = player.currentWeapon.damage;
         }
 
+        var parti = Instantiate(bullets.particals,bullet.transform.position, Quaternion.identity);
         Destroy(bullet, bulletLifetime);
+        Destroy(parti, bulletLifetime - 2);
     }
 }

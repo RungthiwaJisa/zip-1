@@ -17,14 +17,18 @@ public class EnemyScript : MonoBehaviour
         uiManager = ge.GetComponent<UIManager>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.CompareTag("Bullet"))
+        if (other.gameObject.CompareTag("Bullet"))
         {
-            Bullets bullet = other.GetComponent<Bullets>();
+            Bullets bullet = other.gameObject.GetComponent<Bullets>();
             int damages = bullet != null ? bullet.damage : 10;
 
+            var parti = Instantiate(bullet.particals, bullet.transform.position, Quaternion.identity);
+
             Destroy(other.gameObject);
+            Destroy(parti,2);
+
             TakeDamage(damages);
         }
     }
@@ -40,6 +44,7 @@ public class EnemyScript : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("Take Damages");
         hp -= damage;
         if (hp <= 0)
         {
