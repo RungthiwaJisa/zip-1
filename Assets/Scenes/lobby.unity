@@ -959,7 +959,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8758932246832267359, guid: c01f3dd3a57fdb445bac8d7019f83ab8, type: 3}
   cameraTransform: {fileID: 1747532618}
   player: {fileID: 121190544}
-  bulletSpeed: 10
+  bulletSpeed: 100
   bulletLifetime: 3
 --- !u!114 &649093977
 MonoBehaviour:
@@ -1588,9 +1588,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 649093978}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: RestartButtonPressed
+      - m_Target: {fileID: 649093977}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3848,7 +3848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7846971534594577312, guid: 87605b21b9df47845a65f8d503df1193, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985624478689920258, guid: 87605b21b9df47845a65f8d503df1193, type: 3}
       propertyPath: m_Name

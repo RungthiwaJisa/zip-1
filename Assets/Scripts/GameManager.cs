@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(SpawnEnemies());
     }
-    void RestartGame()
+    public void RestartGame()
     {
         Debug.Log("Restarted!");
         _gameStarted = false;
