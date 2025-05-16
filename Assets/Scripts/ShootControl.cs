@@ -6,6 +6,7 @@ public class ShootControl : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private Player player;
+    [SerializeField] private AudioSource gunSound;
 
     [Header("Settings")]
     [SerializeField] private float bulletSpeed = 40f;
@@ -23,6 +24,8 @@ public class ShootControl : MonoBehaviour
         }
 
         UIManager.OnUIShootButton += Shoot;
+
+        gunSound.volume = 0.05f;
     }
 
     void Shoot()
@@ -35,6 +38,11 @@ public class ShootControl : MonoBehaviour
 
         var bullet = Instantiate(bulletPrefab, cameraTransform.position, Quaternion.identity);
         var rb = bullet.GetComponent<Rigidbody>();
+
+        if (gunSound != null && gunSound.clip != null)
+        {
+            gunSound.PlayOneShot(gunSound.clip);
+        }
 
         if (rb != null)
         {

@@ -8,6 +8,7 @@ public class EnemyScript : MonoBehaviour
     public int hp = 50;
     public int goldReward = 10; // เพิ่มรางวัลทอง
     public event Action OnEnemyDestroyed;
+    [SerializeField] private AudioSource takeDamagesSound;
 
     private void Start()
     {
@@ -41,8 +42,13 @@ public class EnemyScript : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("Take Damages");
         hp -= damage;
+
+        if (takeDamagesSound != null && takeDamagesSound.clip != null)
+        {
+            takeDamagesSound.PlayOneShot(takeDamagesSound.clip);
+        }
+
         if (hp <= 0)
         {
             Die();

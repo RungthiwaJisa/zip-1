@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public UIManager uiManager;
     public Weapons currentWeapon;
     public Image imageWeapon;
+    [SerializeField] private AudioSource takeDamageSound;
 
     private void Start()
     {
@@ -28,6 +29,12 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         hp -= damage;
+
+        if (takeDamageSound != null && takeDamageSound.clip != null)
+        {
+            takeDamageSound.PlayOneShot(takeDamageSound.clip);
+        }
+
         if (hp <= 0)
         {
             Die();
